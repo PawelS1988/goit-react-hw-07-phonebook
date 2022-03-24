@@ -1,25 +1,22 @@
-import logo from './logo.svg';
-import './App.css';
+import { Title } from "./styled/Title"
+import { Section } from "./styled/Section"
+import Form from "./Componets/Form/Form"
+import Search from "./Componets/Search/Search"
+import Display from "./Componets/Display/Display"
+import { useGetContactsQuery } from "./app/API/fetchMockApi"
 
 function App() {
+  const { data, isLoading } = useGetContactsQuery("")
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <Section>
+      <Title>Phonebook</Title>
+      <Form contacts={data} />
+      <Title as="h2">Contacts</Title>
+      <Search />
+      {isLoading ? <div> loading </div> : <Display contacts={data} />}
+    </Section>
+  )
 }
 
-export default App;
+export default App
